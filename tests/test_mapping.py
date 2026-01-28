@@ -1,6 +1,6 @@
 import pytest
 import json
-from main import cleanup_text, parse_person_name, try_parse_json_list, map_to_schema_org
+from mapping import cleanup_text, parse_person_name, try_parse_json_list, map_to_schema_org
 
 def test_cleanup_text_html_tags():
     html_input = "<div class=\"row\">Hello <br> world! <p>This is a test.</p></div>"

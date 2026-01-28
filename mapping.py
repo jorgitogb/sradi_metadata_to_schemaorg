@@ -4,6 +4,7 @@ import logging
 from typing import List, Dict, Any
 import re
 import html
+import os
 
 
 # Configure logging
@@ -11,6 +12,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 BASE_URL = "http://129.187.232.198:5000/api/3/action"
+OUTPUT_FILE = "output/schema_org_metadata.json"
 
 def fetch_package_list() -> List[str]:
     """Fetch the list of all package names from CKAN."""
@@ -183,9 +185,14 @@ def main():
             schema_data = map_to_schema_org(ckan_metadata)
             all_schema_metadata.append(schema_data)
 
-    output_file = "schema_org_metadata.json"
-    logger.info(f"Saving {len(all_schema_metadata)} datasets to {output_file}")
-    with open(output_file, "w", encoding="utf-8") as f:
+    
+    output_dir = os.path.dirname(OUTPUT_FILE)
+    if output_dir and not os.path.exists(output_dir):
+        logger.info(f"Creating directory: {output_dir}")
+        os.makedirs(output_dir)
+
+    logger.info(f"Saving {len(all_schema_metadata)} datasets to {OUTPUT_FILE}")
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(all_schema_metadata, f, indent=2, ensure_ascii=False)
     
     logger.info("Transfer completed successfully.")
