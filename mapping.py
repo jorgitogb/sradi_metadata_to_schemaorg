@@ -11,8 +11,8 @@ import os
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-BASE_URL = "http://129.187.232.198:5000/api/3/action"
-OUTPUT_FILE = "output/schema_org_metadata.json"
+BASE_URL = "https://agrihub.gis.lrg.tum.de/api/3/action"
+OUTPUT_FILE = "output/sradi_schemaorg.json"
 
 def fetch_package_list() -> List[str]:
     """Fetch the list of all package names from CKAN."""
